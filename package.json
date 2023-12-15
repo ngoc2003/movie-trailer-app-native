@@ -27,6 +27,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-snap-carousel-v4": "^1.0.1",
     "react-native-svg": "^14.1.0",
+    "react-native-webview": "^13.6.3",
+    "react-native-youtube-iframe": "^2.3.0",
     "swr": "^2.2.4",
     "twrnc": "^3.6.6"
   },

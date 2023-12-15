@@ -9,7 +9,7 @@ const Cast = ({ text = "Top cast", data }) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   return (
     <View style={tw`my-6`}>
-      <Text style={tw`text-white text-lg mx-4 mb-5`}>{text}</Text>
+      <Text style={tw`text-white text-lg mx-4 mb-5 font-semibold`}>{text}</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -35,11 +35,14 @@ const Cast = ({ text = "Top cast", data }) => {
                     }}
                   />
                 </View>
-                <Text
-                  numberOfLines={1}
-                  style={tw`text-neutral-400 text-xs mt-1`}
-                >
+                <Text numberOfLines={1} style={tw`text-white text-xs mt-1`}>
                   {person.name}
+                </Text>
+                <Text
+                  numberOfLines={2}
+                  style={{ maxWidth: 100,...tw`text-neutral-400 text-xs mt-1 text-center` }}
+                >
+                  {person.character}
                 </Text>
               </TouchableOpacity>
             );
