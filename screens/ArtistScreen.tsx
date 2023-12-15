@@ -76,7 +76,7 @@ const ArtistScreen = () => {
           </View>
           <View className="my-6 mx-4 space-y-2">
             <Text className="text-white text-lg">Biography</Text>
-            <Text className="text-neutral-400 tracking-wide">ehhehehe</Text>
+            <Text className="text-neutral-400  ">ehhehehe</Text>
           </View>
 
           {/* {<MovieList data={[1, 2, 3, 4, 5, 6]} title="Movies" />} */}

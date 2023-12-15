@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Platform, SafeAreaView, TouchableOpacity, View } from "react-native";
+import { SafeAreaView, TouchableOpacity, View } from "react-native";
 import { styles, theme } from "../../../theme";
 import { useNavigation } from "@react-navigation/native";
 import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
 import tw from "twrnc";
 
-const isIos = Platform.OS === "ios";
-
 const TopNavigation = ({ isDock = false }) => {
   const navigation = useNavigation();
   const [isFavorite, setIsFavorite] = useState(false);
   return (
-    <View style={tw`w-full z-20 px-4 ${!isDock ? "absolute" : ""}`}>
+    <View style={tw`w-full z-20 p-4 ${!isDock ? "absolute" : ""}`}>
       <SafeAreaView
         style={tw`w-full flex-row justify-between items-center android:mt-4`}
       >

@@ -1,7 +1,5 @@
 export const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const APP_URL = "https://tl-movie.vercel.app";
-
 const apiKey = "1a763884400befdbd957d043e8e9e19c";
 
 const API_domain = `https://api.themoviedb.org/3`;
@@ -33,16 +31,16 @@ export const API = {
   getYoutubeVideo: (path: string) => `https://www.youtube.com/embed/${path}`,
 
   getAnimeList:
-    () => `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&page=1&with_genres=16&with_keywords=210024|287501&with_text_query=death&sort_by=popularity.desc
+    () => `${API_domain}/discover/movie?api_key=${apiKey}&language=en-US&page=1&with_genres=16&with_keywords=210024|287501&with_text_query=death&sort_by=popularity.desc
   `,
   getAnimeEpisodeList:
-    () => `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}&language=en-US&page=1&with_genres=16&with_keywords=210024|287501&with_text_query=death&sort_by=popularity.desc
+    () => `${API_domain}/discover/tv?api_key=${apiKey}&language=en-US&page=1&with_genres=16&with_keywords=210024|287501&with_text_query=death&sort_by=popularity.desc
   `,
 
   getHorrorList: () =>
-    `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27`,
+    `${API_domain}/discover/movie?api_key=${apiKey}&include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27`,
 
   getTrendingList: (
     query = "person" //movie | person | tv
-  ) => `https://api.themoviedb.org/3/trending/${query}/day?api_key=${apiKey}`,
+  ) => `${API_domain}/trending/${query}/day?api_key=${apiKey}`,
 };

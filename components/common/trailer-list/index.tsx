@@ -1,39 +1,17 @@
 import React from "react";
 import { Dimensions, Text, View } from "react-native";
 import tw from "twrnc";
-import YoutubePlayer from "react-native-youtube-iframe";
 import Carousel from "react-native-snap-carousel-v4";
 import { styles } from "../../../theme";
-import { format } from "date-fns";
+import TrailerVideoItem from "./trailer-video-item";
+import { TrailerVideoType } from "../../../types";
 
 interface TrailerListProps {
-  text: string;
-  data: any;
+  text?: string;
+  data: TrailerVideoType[];
 }
 
 const { width } = Dimensions.get("window");
-
-const TrailerVideoItem = ({ data }) => {
-  return (
-    <View style={{ marginRight: 12 }}>
-      <YoutubePlayer
-        height={180}
-        play={false}
-        videoId={data.key}
-        allowWebViewZoom
-        width={width * 0.9}
-      />
-      <View style={{ paddingHorizontal: 4 }}>
-        <Text numberOfLines={2} style={tw`text-neutral-400 mt-4 font-semibold`}>
-          {data.name}
-        </Text>
-        <Text numberOfLines={2} style={tw`text-neutral-500 mt-2`}>
-          Published at: {format(new Date(data.published_at), "dd-MM-yyyy")}
-        </Text>
-      </View>
-    </View>
-  );
-};
 
 const TrailerList = ({
   text = "List movie trailer",
@@ -45,10 +23,10 @@ const TrailerList = ({
         style={{
           ...styles.text,
           marginLeft: 16,
-          ...tw`text-xl mb-4 font-semibold`,
+          ...tw`text-2xl mb-4 font-semibold`,
         }}
       >
-        - {text}
+        {text}
       </Text>
       <Carousel
         data={data}
@@ -70,21 +48,3 @@ const TrailerList = ({
 };
 
 export default TrailerList;
-
-// {
-//     "id":238,
-//     "results":[
-//        {
-//           "id":"656b9c210859b400ff7519bc",
-//           "iso_3166_1":"US",
-//           "iso_639_1":"en",
-//           "key":"evl5ai7Mg7w",
-//           "name":"Don Corleone Gets Shot",
-//           "official":true,
-//           "published_at":"2023-12-02T16:59:55.000Z",
-//           "site":"YouTube",
-//           "size":1080,
-//           "type":"Clip"
-//        },
-//     ]
-//  }

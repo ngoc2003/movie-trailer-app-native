@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Dimensions, Text, View } from "react-native";
 import Carousel from "react-native-snap-carousel-v4";
-import MovieCard from "../movie-card";
+import MovieCard from "../movie-list/movie-card";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 let { width } = Dimensions.get("window");

@@ -11,7 +11,7 @@ import { styles, theme } from "../../../theme";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MovieType } from "../../../types";
-import MovieCard from "../movie-card";
+import MovieCard from "./movie-card";
 import tw from "twrnc";
 
 interface MovieListProps {

@@ -6,11 +6,11 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { API } from "../../../api";
-import { styles } from "../../../theme";
+import { API } from "../../../../api";
+import { styles } from "../../../../theme";
 import { format } from "date-fns";
-import { MovieType } from "../../../types";
-import Rate from "../rate";
+import { MovieType } from "../../../../types";
+import Rate from "../../rate";
 import tw from "twrnc";
 
 type MovieCardSize = "normal" | "small";

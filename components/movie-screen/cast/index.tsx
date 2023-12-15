@@ -4,9 +4,15 @@ import React from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { API } from "../../../api";
 import tw from "twrnc";
+import { CastType } from "../../../types";
 
-const Cast = ({ text = "Top cast", data }) => {
+interface CastProps {
+  text?: string;
+  data: CastType[];
+}
+const Cast = ({ text = "Top cast", data }: CastProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
   return (
     <View style={tw`my-6`}>
       <Text style={tw`text-white text-lg mx-4 mb-5 font-semibold`}>{text}</Text>
@@ -23,7 +29,7 @@ const Cast = ({ text = "Top cast", data }) => {
               <TouchableOpacity
                 key={person.id}
                 style={tw`mr-4 items-center`}
-                onPress={() => navigation.navigate("Artist", person.id)}
+                onPress={() => navigation.navigate("Artist", { id: person.id })}
               >
                 <View
                   style={tw`overflow-hidden rounded-full h-20 w-20 border items-center border-neutral-500`}
@@ -40,7 +46,10 @@ const Cast = ({ text = "Top cast", data }) => {
                 </Text>
                 <Text
                   numberOfLines={2}
-                  style={{ maxWidth: 100,...tw`text-neutral-400 text-xs mt-1 text-center` }}
+                  style={{
+                    maxWidth: 100,
+                    ...tw`text-neutral-400 text-xs mt-1 text-center`,
+                  }}
                 >
                   {person.character}
                 </Text>

@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
-  Platform,
   SafeAreaView,
   ScrollView,
   Text,
@@ -89,7 +88,7 @@ const HomeScreen = () => {
   );
 
   return (
-    <View style={tw`flex-1 bg-neutral-800`}>
+    <View style={tw`flex-1 bg-neutral-900`}>
       <SafeAreaView style={tw`ios:mb-2 android:mb-3`}>
         <StatusBar translucent={false} style="dark" />
         <View style={tw`flex-row justify-between items-center mx-4 pt-3 pb-2`}>

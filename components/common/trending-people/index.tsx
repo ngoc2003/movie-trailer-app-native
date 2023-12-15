@@ -12,7 +12,6 @@ import {
 import { API } from "../../../api";
 import tw from "twrnc";
 import { TrendingPeopleType } from "../../../types";
-import { styles } from "../../../theme";
 
 interface TrendingPeppleProps {
   data: TrendingPeopleType[];

@@ -1,3 +1,8 @@
+enum Gender {
+  Male = 2,
+  Female = 1,
+}
+
 export interface MovieType {
   adult: boolean;
   backdrop_path: string;
@@ -15,6 +20,36 @@ export interface MovieType {
   vote_count: number;
 }
 
+export interface MovieDetailType extends MovieType {
+  belongs_to_collection: string | null;
+  budget: number;
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  homepage: string;
+  imdb_id: string;
+  production_companies: {
+    id: number;
+    logo_path: string;
+    name: string;
+    origin_country: string;
+  }[];
+  production_countries: {
+    iso_3166_1: string;
+    name: string;
+  }[];
+  revenue: number;
+  runtime: number;
+  spoken_languages: {
+    english_name: string;
+    iso_639_1: string;
+    name: string;
+  }[];
+  status: string;
+  tagline: string;
+}
+
 export interface TvShowType {
   adult: boolean;
   backdrop_path: string;
@@ -30,6 +65,44 @@ export interface TvShowType {
   poster_path: string;
   vote_average: number;
   vote_count: number;
+}
+
+export interface TrailerVideoType {
+  id: string;
+  iso_3166_1: string;
+  iso_639_1: string;
+  key: string;
+  name: string;
+  official: boolean;
+  published_at: string;
+  site: string;
+  size: 1080;
+  type: string; //default Clip
+}
+
+export interface CastType {
+  adult: false;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  gender: Gender;
+  id: number;
+  known_for_department: string;
+  name: string;
+  order: number;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export interface TrailerVideoListResponseType {
+  id: string;
+  results: TrailerVideoType[];
+}
+
+export interface MetaCastListResponseType {
+  id: string;
+  cast: CastType[];
 }
 
 export interface PeopleType {
@@ -52,6 +125,21 @@ export interface TrendingPeopleType extends PeopleType {
   media_type: string;
   known_for: KnownForType[];
 }
+export interface ReviewType {
+  author: string;
+  author_details: {
+    avatar_path: string;
+    name: string;
+    rating: number;
+    username: string;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+}
+
 export type CommonResponse<T> = {
   page: number;
   results: T;
