@@ -1,3 +1,5 @@
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import {
   Dimensions,
@@ -6,34 +8,37 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { format } from "date-fns";
 import tw from "twrnc";
 import { API } from "../../../../api";
+import Rate from "../../../common/rate";
+import { format } from "date-fns";
 import { styles } from "../../../../theme";
-import { TvShowType } from "../../../../types";
-import Rate from "../../rate";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SeasonType } from "../../../../types";
 
 const { width } = Dimensions.get("window");
 
-interface TvShowItemProp {
-  data: TvShowType;
+interface SeasonItemProps {
+  data: SeasonType;
+  seriesId: string;
 }
 
-const TvShowItem = ({ data }: TvShowItemProp) => {
+const SeasonItem = ({ data: item, seriesId }: SeasonItemProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
   return (
     <TouchableWithoutFeedback
-      key={data.id}
-      onPress={() => navigation.navigate("TvShow", { id: data.id })}
+      key={item.id}
+      onPress={() =>
+        navigation.navigate("Season", {
+          seriesId: seriesId,
+          seasonNumber: item.season_number,
+        })
+      }
     >
       <View style={tw`mx-2`}>
         <View>
           <Image
             source={{
-              uri: API.getImageUrl(data?.backdrop_path || data?.poster_path),
+              uri: API.getImageUrl(item.poster_path),
             }}
             style={{
               width: width * 0.75,
@@ -42,22 +47,29 @@ const TvShowItem = ({ data }: TvShowItemProp) => {
             }}
           />
           <View style={tw`absolute left-4 -bottom-4 bg-slate-900 rounded-full`}>
-            <Rate progress={data.vote_average / 10} rate={data.vote_average} />
+            <Rate progress={item.vote_average / 10} rate={item.vote_average} />
           </View>
         </View>
         <View style={tw`pt-5 px-2`}>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
-            style={{ ...tw`font-bold `, ...styles.text }}
+            style={{ ...tw`font-bold text-base`, ...styles.text }}
           >
-            {data.name}
+            {item.name}
           </Text>
-          {data?.first_air_date && (
-            <Text style={tw`text-slate-500 mt-0.5 text-xs`}>
-              {format(new Date(data.first_air_date), "MMMM dd, yyyy")}
+          {item.air_date && (
+            <Text
+              style={{
+                ...tw`text-slate-500 mt-0.5 text-xs`,
+              }}
+            >
+              {format(new Date(item.air_date), "MMMM dd, yyyy")}
             </Text>
           )}
+          <Text style={tw`text-slate-400 mt-2 text-sm`}>
+            Episode count: {item.episode_count}
+          </Text>
           <Text
             style={{
               width: width * 0.75,
@@ -65,7 +77,7 @@ const TvShowItem = ({ data }: TvShowItemProp) => {
             }}
             numberOfLines={2}
           >
-            {data.overview}
+            {item.overview}
           </Text>
         </View>
       </View>
@@ -73,4 +85,4 @@ const TvShowItem = ({ data }: TvShowItemProp) => {
   );
 };
 
-export default TvShowItem;
+export default SeasonItem;

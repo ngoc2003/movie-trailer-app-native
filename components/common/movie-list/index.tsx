@@ -1,7 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   FlatList,
-  Image,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -37,12 +36,14 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
       >
         <Text style={{ color: "white", fontSize: 20 }}>{title}</Text>
         <TouchableOpacity>
-          <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text>
+          <Text style={[styles.text, { fontWeight: "bold" }]}>
+            See All <Text></Text>
+          </Text>
         </TouchableOpacity>
       </View>
-      {isLoading ? (
-        <MovieList.Skeleton />
-      ) : (
+      {isLoading && <MovieList.Skeleton />}
+
+      {!isLoading && data.length && (
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -62,11 +63,14 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
           )}
         />
       )}
+      {!isLoading && !data.length && (
+        <Text style={tw`text-slate-400 px-4 text-base`}>No data founded</Text>
+      )}
     </View>
   );
 };
 
-export default MovieList;
+export default memo(MovieList);
 
 MovieList.Skeleton = () => {
   return (

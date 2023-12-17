@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Dimensions, Text, View } from "react-native";
 import Carousel from "react-native-snap-carousel-v4";
 import MovieCard from "../movie-list/movie-card";
@@ -66,7 +66,6 @@ TrendingMovies.Skeleton = function () {
       slideStyle={{
         display: "flex",
         alignItems: "center",
-        ...tw`animate-pulse`,
       }}
     />
   );

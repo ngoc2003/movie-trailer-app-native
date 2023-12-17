@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, FlatList, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 import tw from "twrnc";
 import { theme } from "../../../theme";
 import ReviewItem from "./review-item";
@@ -26,12 +26,18 @@ const ReviewList = ({ data }: ReviewListProps) => {
           Reviews
         </Text>
       </View>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={data}
-        renderItem={({ item }) => <ReviewItem key={item.id} data={item} />}
-      />
+      {data.length ? (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={data}
+          renderItem={({ item }) => <ReviewItem key={item.id} data={item} />}
+        />
+      ) : (
+        <Text style={tw`text-slate-400 text-base px-4`}>
+          No reviews founded!
+        </Text>
+      )}
     </View>
   );
 };

@@ -29,10 +29,10 @@ export default function SearchScreen() {
   const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
   return (
-    <SafeAreaView style={tw`bg-neutral-800 flex-1 flex-col`}>
+    <SafeAreaView style={tw`bg-slate-800 flex-1 flex-col`}>
       <View style={tw`mx-4 my-3`}>
         <View
-          style={tw`mb-3 p-1 flex-row justify-between items-center border border-neutral-500 rounded-full`}
+          style={tw`mb-3 p-1 flex-row justify-between items-center border border-slate-500 rounded-full`}
         >
           <TextInput
             onChangeText={handleTextDebounce}
@@ -42,7 +42,7 @@ export default function SearchScreen() {
           />
           <TouchableOpacity
             onPress={() => navigation.navigate("Home")}
-            style={tw`rounded-full p-3 bg-neutral-500`}
+            style={tw`rounded-full p-3 bg-slate-500`}
           >
             <XMarkIcon size="20" color="white" />
           </TouchableOpacity>
@@ -67,7 +67,7 @@ export default function SearchScreen() {
                   key={index}
                   onPress={() => navigation.navigate("Movie", item)}
                 >
-                  <View style={tw`space-y-2 mb-4`}>
+                  <View style={tw`  mb-4`}>
                     <Image
                       source={require("../assets/icon.png")}
                       style={{

@@ -3,7 +3,6 @@ import React from "react";
 import { Dimensions, Image, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/movie-screen/cast";
-import MovieList from "../components/common/movie-list";
 import tw from "twrnc";
 import useSWR from "swr";
 import { API, fetcher } from "../api";
@@ -11,19 +10,21 @@ import Loading from "../components/common/loading";
 import {
   CommonResponse,
   MetaCastListResponseType,
-  MovieDetailType,
-  MovieType,
   ReviewType,
   TrailerVideoListResponseType,
+  TvShowDetailType,
+  TvShowType,
 } from "../types";
 import ReviewList from "../components/common/review-list";
 import TrailerList from "../components/common/trailer-list";
-import OverView from "../components/movie-screen/overview";
 import LayoutDefault from "../layouts";
+import TvShowOverview from "../components/tv-show-screen/tvshow-overview";
+import SeasonList from "../components/tv-show-screen/season-list";
+import TvShowList from "../components/common/tv-show-list";
 
 const { width, height } = Dimensions.get("window");
 
-const MovieScreen = () => {
+const TvShowScreen = () => {
   const {
     params: { id },
   } = useRoute();
@@ -34,28 +35,30 @@ const MovieScreen = () => {
       fetcher
     );
 
-  const { data, isLoading } = useSWR<MovieDetailType>(
-    API.getMovieDetail(id, "movie"),
+  const { data, isLoading } = useSWR<TvShowDetailType>(
+    API.getMovieDetail(id, "tv"),
     fetcher
   );
 
-  const { data: metaCastData, isLoading: metaCastLoading } =
-    useSWR<MetaCastListResponseType>(
-      API.getDetailMeta(id, "credits", "movie"),
-      fetcher
-    );
+  const { data: metaCastData } = useSWR<MetaCastListResponseType>(
+    API.getDetailMeta(id, "credits", "tv"),
+    fetcher
+  );
 
-  const { data: metaSimilarData, isLoading: metaSimilarListLoading } = useSWR<
-    CommonResponse<MovieType[]>
-  >(API.getDetailMeta(id, "similar", "movie"), fetcher);
+  const { data: metaSimilarData } = useSWR<CommonResponse<TvShowType[]>>(
+    API.getDetailMeta(id, "similar", "tv"),
+    fetcher
+  );
 
-  const { data: metaReviewsData, isLoading: mataReviewLoading } = useSWR<
-    CommonResponse<ReviewType[]>
-  >(API.getDetailMeta(id, "reviews", "movie"), fetcher);
+  const { data: metaReviewsData } = useSWR<CommonResponse<ReviewType[]>>(
+    API.getDetailMeta(id, "reviews", "tv"),
+    fetcher
+  );
 
-  const { data: recommendatoinsData, isLoading: recommendLoading } = useSWR<
-    CommonResponse<MovieType[]>
-  >(API.getRecommendationList(id), fetcher);
+  const { data: recommendatoinsData } = useSWR<CommonResponse<TvShowType[]>>(
+    API.getRecommendationList(id, "tv"),
+    fetcher
+  );
 
   const castList = metaCastData?.cast ?? [];
 
@@ -63,9 +66,9 @@ const MovieScreen = () => {
 
   const reviewsList = metaReviewsData?.results ?? [];
 
-  const similarList: MovieType[] = metaSimilarData?.results ?? [];
+  const similarList: TvShowType[] = metaSimilarData?.results ?? [];
 
-  const recommendationList: MovieType[] = recommendatoinsData?.results ?? [];
+  const recommendationList: TvShowType[] = recommendatoinsData?.results ?? [];
 
   if (!data || isLoading) {
     return <Loading />;
@@ -91,26 +94,20 @@ const MovieScreen = () => {
           end={{ x: 0.5, y: 1 }}
         />
       </View>
-      <OverView data={data} />
+      <TvShowOverview data={data} />
+      <SeasonList seriesId={id} seasons={data?.seasons ?? []} />
+      <TvShowList title="Recommendation" data={recommendationList} />
+      <TvShowList title="Similar tv show" data={similarList} />
       <TrailerList
         isLoading={videoTrailerDataLoading}
         text="Trailer"
         data={trailerList}
       />
-      <Cast text="Cast of the movie" data={castList} />
-      <MovieList
-        isLoading={metaSimilarListLoading}
-        title="Similar movies"
-        data={similarList}
-      />
-      <MovieList
-        isLoading={recommendLoading}
-        title="Recommendations"
-        data={recommendationList}
-      />
+      <Cast text="Cast of the tv show" data={castList} />
+
       <ReviewList data={reviewsList} />
     </LayoutDefault>
   );
 };
 
-export default MovieScreen;
+export default TvShowScreen;

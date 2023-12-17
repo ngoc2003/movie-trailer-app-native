@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { API } from "../../../../api";
-import { styles } from "../../../../theme";
+import { styles, theme } from "../../../../theme";
 import { format } from "date-fns";
 import { MovieType } from "../../../../types";
 import Rate from "../../rate";
@@ -70,11 +70,9 @@ const MovieCard = ({ movie, onPress, size = "normal" }: MovieCardProps) => {
             source={{
               uri: API.getImageUrl(movie.poster_path),
             }}
-            style={{ ...ATTR[size].image, ...tw`rounded-3xl object-cover` }}
+            style={{ ...ATTR[size].image, ...tw`rounded-3xl  ` }}
           />
-          <View
-            style={tw`absolute left-4 -bottom-4 bg-neutral-900 rounded-full`}
-          >
+          <View style={tw`absolute left-4 -bottom-4 bg-slate-900 rounded-full`}>
             <Rate
               progress={movie.vote_average / 10}
               rate={movie.vote_average}
@@ -89,7 +87,7 @@ const MovieCard = ({ movie, onPress, size = "normal" }: MovieCardProps) => {
             style={{
               ...styles.text,
               ...ATTR[size].information.title.style,
-              ...tw`font-bold $ATTR[size].information.title.style`,
+              ...tw`font-bold`,
             }}
           >
             {movie.title}
@@ -98,7 +96,7 @@ const MovieCard = ({ movie, onPress, size = "normal" }: MovieCardProps) => {
             <Text
               style={{
                 ...ATTR[size].information.date.style,
-                ...tw`text-neutral-500 mt-0.5`,
+                ...tw`text-slate-500 mt-0.5`,
               }}
             >
               {format(new Date(movie.release_date), "MMMM dd, yyyy")}
@@ -120,7 +118,7 @@ MovieCard.Skeleton = function ({ size = "normal" }: MovieCardSkeleton) {
   return (
     <View
       style={{
-        ...tw`bg-neutral-600 bg-opacity-80 rounded-3xl object-cover py-4 mx-2`,
+        ...tw`bg-[${theme.skeleton}] rounded-3xl   py-4 mx-2`,
         ...ATTR[size].image,
       }}
     ></View>

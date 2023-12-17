@@ -1,16 +1,23 @@
 import React, { memo } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { styles, theme } from "../../../theme";
-import tw from "twrnc";
-import { TvShowType } from "../../../types";
-import TvShowItem from "./tv-show-item";
+import { theme } from "../../../theme";
+import { styles } from "../../../theme";
 
-interface TvShowListProps {
-  title: string;
-  data: TvShowType[];
+import tw from "twrnc";
+import SeasonItem from "./season-item";
+import { SeasonType } from "../../../types";
+
+interface SeasonListProps {
+  seriesId: string;
+  title?: string;
+  seasons: SeasonType[];
 }
 
-const TvShowList = ({ title, data }: TvShowListProps) => {
+const SeasonList = ({
+  seriesId,
+  title = " Season List ",
+  seasons,
+}: SeasonListProps) => {
   return (
     <View
       style={{
@@ -36,11 +43,13 @@ const TvShowList = ({ title, data }: TvShowListProps) => {
           paddingHorizontal: 10,
         }}
         nestedScrollEnabled={true}
-        data={data}
-        renderItem={({ item }) => <TvShowItem key={item.id} data={item} />}
+        data={seasons}
+        renderItem={({ item }) => (
+          <SeasonItem seriesId={seriesId} data={item} />
+        )}
       />
     </View>
   );
 };
 
-export default memo(TvShowList);
+export default memo(SeasonList);

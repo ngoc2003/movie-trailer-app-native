@@ -8,7 +8,9 @@ interface OverviewTextProps {
 }
 
 const OverviewText = ({ style, children }: OverviewTextProps) => {
-  return <Text style={{ ...tw`text-neutral-400`, ...style }}>{children}</Text>;
+  return (
+    <Text style={{ ...tw`text-slate-400 text-sm`, ...style }}>{children}</Text>
+  );
 };
 
 export default OverviewText;

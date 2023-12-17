@@ -23,7 +23,7 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
-    <View style={{ ...tw`my-6 bg-opacity-30 py-4 pb-8 bg-neutral-600` }}>
+    <View style={{ ...tw`my-6 bg-opacity-30 py-4 pb-8 bg-[#211f30]` }}>
       <Text style={tw`text-center text-xl text-white mx-4 mb-5 font-bold`}>
         Trending people
       </Text>
@@ -49,7 +49,9 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
                     ...tw`rounded-2xl`,
                   }}
                   source={{
-                    uri: API.getImageUrl(person.profile_path ?? ""),
+                    uri:
+                      API.getImageUrl(person.profile_path ?? "") ||
+                      "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/09/hinh-nen-dien-thoai-cute-2022-19-696x1237.jpg?fit=700%2C20000&quality=95&ssl=1",
                   }}
                 />
               </View>
@@ -64,7 +66,7 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
                   ellipsizeMode="tail"
                   style={{
                     width: width * 0.4,
-                    ...tw`text-neutral-300 text-xs mt-1`,
+                    ...tw`text-slate-300 text-xs mt-1`,
                   }}
                   numberOfLines={3}
                 >

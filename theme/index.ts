@@ -1,5 +1,6 @@
 export const theme = {
-  main: "#b60466",
+  main: "rgb(182,4,102)",
+  skeleton: "rgba(42,42,42,0.5)",
   border: "#222220",
 };
 
