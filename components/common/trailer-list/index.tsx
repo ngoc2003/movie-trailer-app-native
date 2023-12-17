@@ -19,7 +19,6 @@ const TrailerList = ({
   data,
   isLoading,
 }: TrailerListProps) => {
-  console.log(width);
   return (
     <View>
       <Text
@@ -41,12 +40,11 @@ const TrailerList = ({
           }}
           vertical={false}
           firstItem={0}
-          sliderWidth={320}
+          sliderWidth={width}
           itemWidth={290}
           slideStyle={{
             display: "flex",
             alignItems: "center",
-            ...tw`animate-pulse`,
           }}
         />
       )}
@@ -60,7 +58,7 @@ TrailerList.Skeleton = function () {
   return (
     <Carousel
       data={[1, 2, 3, 4]}
-      renderItem={({ item }) => {
+      renderItem={() => {
         return <TrailerVideoItem.Skeleton />;
       }}
       vertical={false}
@@ -70,7 +68,6 @@ TrailerList.Skeleton = function () {
       slideStyle={{
         display: "flex",
         alignItems: "center",
-        ...tw`animate-pulse`,
       }}
     />
   );

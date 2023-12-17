@@ -44,8 +44,8 @@ export const API = {
     query = "person" //movie | person | tv
   ) => `${API_domain}/trending/${query}/day?api_key=${apiKey}`,
 
-  getRecommendationList: (id: string) =>
-    `${API_domain}/movie/${id}/recommendations?language=en-US&page=1&api_key=${apiKey}`,
+  getRecommendationList: (id: string, mediaType = "movie") =>
+    `${API_domain}/${mediaType}/${id}/recommendations?language=en-US&page=1&api_key=${apiKey}`,
 
   getSeason: (seriesId: string, seasonNumber: string) =>
     `${API_domain}/tv/${seriesId}/season/${seasonNumber}?language=en-US&api_key=${apiKey}`,

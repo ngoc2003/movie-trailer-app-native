@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { styles, theme } from "../../../theme";
 import tw from "twrnc";
@@ -43,4 +43,4 @@ const TvShowList = ({ title, data }: TvShowListProps) => {
   );
 };
 
-export default TvShowList;
+export default memo(TvShowList);

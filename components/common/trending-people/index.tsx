@@ -49,7 +49,9 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
                     ...tw`rounded-2xl`,
                   }}
                   source={{
-                    uri: API.getImageUrl(person.profile_path ?? ""),
+                    uri:
+                      API.getImageUrl(person.profile_path ?? "") ||
+                      "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/09/hinh-nen-dien-thoai-cute-2022-19-696x1237.jpg?fit=700%2C20000&quality=95&ssl=1",
                   }}
                 />
               </View>
