@@ -12,6 +12,8 @@ import { API } from "../../../../api";
 import { styles } from "../../../../theme";
 import { TvShowType } from "../../../../types";
 import Rate from "../../rate";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const { width } = Dimensions.get("window");
 
@@ -20,23 +22,26 @@ interface TvShowItemProp {
 }
 
 const TvShowItem = ({ data }: TvShowItemProp) => {
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
   return (
-    <TouchableWithoutFeedback key={data.id}>
+    <TouchableWithoutFeedback
+      key={data.id}
+      onPress={() => navigation.navigate("TvShow", { id: data.id })}
+    >
       <View style={tw`mx-2`}>
         <View>
           <Image
             source={{
-              uri: API.getImageUrl(data.backdrop_path),
+              uri: API.getImageUrl(data?.backdrop_path || data?.poster_path),
             }}
             style={{
               width: width * 0.75,
               height: 180,
-              ...tw`rounded-3xl object-cover`,
+              ...tw`rounded-3xl  `,
             }}
           />
-          <View
-            style={tw`absolute left-4 -bottom-4 bg-neutral-900 rounded-full`}
-          >
+          <View style={tw`absolute left-4 -bottom-4 bg-slate-900 rounded-full`}>
             <Rate progress={data.vote_average / 10} rate={data.vote_average} />
           </View>
         </View>
@@ -49,14 +54,14 @@ const TvShowItem = ({ data }: TvShowItemProp) => {
             {data.name}
           </Text>
           {data?.first_air_date && (
-            <Text style={tw`text-neutral-500 mt-0.5 text-xs`}>
+            <Text style={tw`text-slate-500 mt-0.5 text-xs`}>
               {format(new Date(data.first_air_date), "MMMM dd, yyyy")}
             </Text>
           )}
           <Text
             style={{
               width: width * 0.75,
-              ...tw`text-sm text-neutral-400 mt-1.5`,
+              ...tw`text-sm text-slate-400 mt-1.5`,
             }}
             numberOfLines={2}
           >

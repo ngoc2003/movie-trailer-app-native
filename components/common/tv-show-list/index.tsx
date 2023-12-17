@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  Dimensions,
-  FlatList,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { styles, theme } from "../../../theme";
 import tw from "twrnc";
 import { TvShowType } from "../../../types";
 import TvShowItem from "./tv-show-item";
-
-const { width } = Dimensions.get("window");
 
 interface TvShowListProps {
   title: string;

@@ -20,13 +20,15 @@ export interface MovieType {
   vote_count: number;
 }
 
+export interface GenresDetailType {
+  id: number;
+  name: string;
+}
+
 export interface MovieDetailType extends MovieType {
   belongs_to_collection: string | null;
   budget: number;
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: GenresDetailType[];
   homepage: string;
   imdb_id: string;
   production_companies: {

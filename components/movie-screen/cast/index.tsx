@@ -13,6 +13,10 @@ interface CastProps {
 const Cast = ({ text = "Top cast", data }: CastProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
+  if (!data?.length) {
+    return null;
+  }
+
   return (
     <View style={tw`my-6`}>
       <Text style={tw`text-white text-lg mx-4 mb-5 font-semibold`}>{text}</Text>
@@ -32,7 +36,7 @@ const Cast = ({ text = "Top cast", data }: CastProps) => {
                 onPress={() => navigation.navigate("Artist", { id: person.id })}
               >
                 <View
-                  style={tw`overflow-hidden rounded-full h-20 w-20 border items-center border-neutral-500`}
+                  style={tw`overflow-hidden rounded-full h-20 w-20 border items-center border-slate-500`}
                 >
                   <Image
                     style={tw`rounded-2xl h-24 w-20`}
@@ -48,7 +52,7 @@ const Cast = ({ text = "Top cast", data }: CastProps) => {
                   numberOfLines={2}
                   style={{
                     maxWidth: 100,
-                    ...tw`text-neutral-400 text-xs mt-1 text-center`,
+                    ...tw`text-slate-400 text-xs mt-1 text-center`,
                   }}
                 >
                   {person.character}

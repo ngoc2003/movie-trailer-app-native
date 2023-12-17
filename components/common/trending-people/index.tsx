@@ -23,7 +23,7 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
-    <View style={{ ...tw`my-6 bg-opacity-30 py-4 pb-8 bg-neutral-600` }}>
+    <View style={{ ...tw`my-6 bg-opacity-30 py-4 pb-8 bg-[#211f30]` }}>
       <Text style={tw`text-center text-xl text-white mx-4 mb-5 font-bold`}>
         Trending people
       </Text>
@@ -64,7 +64,7 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
                   ellipsizeMode="tail"
                   style={{
                     width: width * 0.4,
-                    ...tw`text-neutral-300 text-xs mt-1`,
+                    ...tw`text-slate-300 text-xs mt-1`,
                   }}
                   numberOfLines={3}
                 >

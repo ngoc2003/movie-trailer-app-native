@@ -16,8 +16,8 @@ interface OverviewProps {
 
 const Overview = ({ data }: OverviewProps) => {
   return (
-    <View style={tw`p-4`}>
-      <OverviewText style={tw`text-neutral-500 text-sm italic mb-1`}>
+    <View style={tw`p-4 pt-2`}>
+      <OverviewText style={tw`text-slate-500 text-sm italic mb-1`}>
         {data.tagline}
       </OverviewText>
       <Text style={{ ...styles.text, ...tw` text-2xl font-bold` }}>
@@ -26,11 +26,11 @@ const Overview = ({ data }: OverviewProps) => {
 
       <View style={tw`flex-row items-center mt-2`}>
         <View style={tw`flex-row items-center mr-6`}>
-          <ClockIcon size={14} style={tw`text-neutral-400 mr-1`} />
+          <ClockIcon size={14} style={tw`text-slate-400 mr-1`} />
           <OverviewText style={tw`text-sm`}>{data.runtime}min</OverviewText>
         </View>
         <View style={tw`flex-row items-center`}>
-          <StarIcon size={14} style={tw`text-neutral-400 mr-1`} />
+          <StarIcon size={14} style={tw`text-slate-400 mr-1`} />
           <OverviewText style={tw`text-sm`}>{data.vote_average}</OverviewText>
         </View>
       </View>
@@ -85,7 +85,7 @@ interface OverviewInfoProps {
   value: string | ReactNode;
 }
 
-const OverviewInfo = ({ label, value }: OverviewInfoProps) => {
+export const OverviewInfo = ({ label, value }: OverviewInfoProps) => {
   return (
     <View style={tw`my-2 mb-3`}>
       <OverviewText style={tw`text-white font-semibold text-base`}>
