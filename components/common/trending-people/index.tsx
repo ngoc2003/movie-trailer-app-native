@@ -28,12 +28,12 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
         Trending people
       </Text>
       <FlatList
+        keyExtractor={(item) => item.id.toString()}
         showsHorizontalScrollIndicator={false}
         horizontal
         data={data}
         renderItem={({ item: person }) => (
           <TouchableOpacity
-            key={person.id}
             onPress={() => navigation.navigate("Artist", person)}
             style={{
               width: width * 0.85,
@@ -49,9 +49,9 @@ const TrendingPeople = ({ data }: TrendingPeppleProps) => {
                     ...tw`rounded-2xl`,
                   }}
                   source={{
-                    uri:
-                      API.getImageUrl(person.profile_path ?? "") ||
-                      "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/09/hinh-nen-dien-thoai-cute-2022-19-696x1237.jpg?fit=700%2C20000&quality=95&ssl=1",
+                    uri: person.profile_path
+                      ? API.getImageUrl(person.profile_path)
+                      : "https://us.123rf.com/450wm/infadel/infadel1712/infadel171200119/91684826-a-black-linear-photo-camera-logo-like-no-image-available.jpg?ver=6",
                   }}
                 />
               </View>

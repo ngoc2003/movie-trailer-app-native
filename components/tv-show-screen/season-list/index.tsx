@@ -42,6 +42,7 @@ const SeasonList = ({
         contentContainerStyle={{
           paddingHorizontal: 10,
         }}
+        keyExtractor={(item) => item.id.toString()}
         nestedScrollEnabled={true}
         data={seasons}
         renderItem={({ item }) => (

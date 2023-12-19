@@ -19,8 +19,10 @@ export const API = {
       : ` ${API_domain}/${type}/${mediaType}/day?api_key=${apiKey}&page=${page}`;
   },
 
-  getMovieDetail: (movieId: string, mediaType = "movie") =>
-    `${API_domain}/${mediaType}/${movieId}?api_key=${apiKey}`,
+  getDetail: (
+    id: string,
+    type = "movie" //movie | tv | person
+  ) => `${API_domain}/${type}/${id}?api_key=${apiKey}`,
 
   getImageUrl: (backdrop_path: string, size = "original") =>
     `https://image.tmdb.org/t/p/${size}/${backdrop_path}`,
@@ -49,4 +51,16 @@ export const API = {
 
   getSeason: (seriesId: string, seasonNumber: string) =>
     `${API_domain}/tv/${seriesId}/season/${seasonNumber}?language=en-US&api_key=${apiKey}`,
+
+  getExternalIdsOfPerson: (id: number) =>
+    `${API_domain}/person/${id}/external_ids?language=en-US&api_key=${apiKey}`,
+
+  getCombinedCreditOfArtist: (id: number) =>
+    `${API_domain}/person/${id}/combined_credits?language=en-US&api_key=${apiKey}`,
+
+  getCreditsOfArtist: (
+    id: number,
+    type = "movie" //type = movie | tv
+  ) =>
+    `${API_domain}/person/${id}/${type}_credits?language=en-US&api_key=${apiKey}`,
 };

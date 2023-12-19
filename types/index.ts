@@ -3,6 +3,8 @@ enum Gender {
   Female = 1,
 }
 
+type MediaType = "movie" | "tv";
+
 export interface GenresDetailType {
   id: number;
   name: string;
@@ -44,6 +46,58 @@ export interface MovieType extends CommonType {
   title: string;
   video: boolean;
   original_title: string;
+}
+
+export type CombinedCreditOfArtistType = CommonType & {
+  original_title: string;
+  video: boolean;
+  title: string;
+  release_date: string;
+  poster_path: string;
+  character: string;
+  credit_id: string;
+  order: number;
+  media_type: MediaType;
+
+  name?: string;
+  first_air_date?: string;
+  origin_country?: string[];
+  original_name?: string;
+};
+
+export interface CombinedCreditOfArtistResponse {
+  cast: CombinedCreditOfArtistType[];
+  id: number;
+}
+
+export interface DetailArtistType {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string;
+  gender: Gender;
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+}
+export interface ExternalInformationResponse {
+  facebook_id: string | null;
+  freebase_id: string | null;
+  freebase_mid: string | null;
+  id: number;
+  imdb_id: string;
+  instagram_id: string | null;
+  tiktok_id: string | null;
+  tvrage_id: string | null;
+  twitter_id: string | null;
+  wikidata_id: string | null;
+  youtube_id: string | null;
 }
 
 export interface TvShowType extends CommonType {
@@ -116,17 +170,17 @@ export interface PeopleType {
   popularity: number;
   profile_path: string | null;
 }
+export interface TrendingPeopleType extends PeopleType {
+  original_name: string;
+  media_type: string;
+  known_for: KnownForType[];
+}
 
 interface KnownForType extends MovieType {
   poster_path: string;
   media_type: string;
 }
 
-export interface TrendingPeopleType extends PeopleType {
-  original_name: string;
-  media_type: string;
-  known_for: KnownForType[];
-}
 export interface ReviewType {
   author: string;
   author_details: {

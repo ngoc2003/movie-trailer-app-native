@@ -1,84 +1,112 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { Dimensions, Image, Text, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import LayoutDefault from "../layouts";
+
+import tw from "twrnc";
+import { LinearGradient } from "expo-linear-gradient";
+import { API, fetcher } from "../api";
+import useSWR from "swr";
+import BasicInformation from "../components/artist-screen/basic-information";
+import ExternalInformation from "../components/artist-screen/external-informaiton";
+import Divider from "../components/common/divider";
 import {
-  Dimensions,
-  Image,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { styles } from "../theme";
-import { useNavigation } from "@react-navigation/native";
-import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
-import MovieList from "../components/common/movie-list";
+  CombinedCreditOfArtistResponse,
+  DetailArtistType,
+  ExternalInformationResponse,
+} from "../types";
+import { theme } from "../theme";
+import CombinedCreditList from "../components/artist-screen/combined-credit-list";
+import Loading from "../components/common/loading";
 
 const { width, height } = Dimensions.get("window");
 
-const ios = Platform.OS == "ios";
-
 const ArtistScreen = () => {
-  const navigation = useNavigation();
+  const route = useRoute();
+
+  const { id } = route.params;
+  const { data } = useSWR<DetailArtistType>(
+    () => API.getDetail(id, "person"),
+    fetcher
+  );
+
+  const { data: externalInformation } = useSWR<ExternalInformationResponse>(
+    () => API.getExternalIdsOfPerson(id),
+    fetcher
+  );
+  const { data: combinedCredit } = useSWR<CombinedCreditOfArtistResponse>(
+    () => API.getCombinedCreditOfArtist(id),
+    fetcher
+  );
+
+  const combinedCreditCastList = useMemo(() => combinedCredit?.cast ?? [], []);
+
+  if (!data || !externalInformation || !combinedCredit) {
+    return <Loading />;
+  }
+
+  const personalInformation = [
+    {
+      title: "Know for",
+      text: data.known_for_department,
+    },
+    {
+      title: "Popularity",
+      text: data.popularity,
+    },
+    {
+      title: "Birthday",
+      text: data.birthday,
+    },
+    {
+      title: "Death day",
+      text: data.deathday,
+    },
+  ];
+
   return (
-    <View className="flex-1 bg-slate-900">
-      <ScrollView>
+    <LayoutDefault>
+      <View>
         <View>
-          <View
-            style={{
-              shadowColor: "gray",
-              shadowRadius: 40,
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 1,
+          <Image
+            source={{
+              uri: API.getImageUrl(data.profile_path),
             }}
-            className="flex-row justify-center"
-          >
-            <View className="items-center rounded-full overflow-hidden h-72 w-72 border border-slate-500">
-              <Image
-                source={require("../assets/icon.png")}
-                style={{ height: height * 0.4, width: width * 0.6 }}
-              />
-            </View>
-          </View>
-
-          <View className="mt-6">
-            <Text className="text-white text-3xl font-bold text-center">
-              Bui Ngoc
-            </Text>
-            <Text className="text-slate-500 text-center">Ha Dong, Ha Noi</Text>
-          </View>
-          <View className="mx-3 p-4 mt-6 flex-row justify-between items-center bg-slate-700 rounded-full">
-            <View className="border-r-2 border-r-slate-400 px-2 items-center">
-              <Text className="text-white text-sm font-semibold">Gender</Text>
-              <Text className="text-slate-300 text-xs">Female</Text>
-            </View>
-            <View className="border-r-2 border-r-slate-400 px-2 items-center">
-              <Text className="text-white text-sm font-semibold">Birthday</Text>
-              <Text className="text-slate-300 text-xs">2003-02-13</Text>
-            </View>
-            <View className="border-r-2 border-r-slate-400 px-2 items-center">
-              <Text className="text-white text-sm font-semibold">Know for</Text>
-              <Text className="text-slate-300 text-xs">ChuaHme</Text>
-            </View>
-            <View className="px-2 items-center">
-              <Text className="text-white text-sm font-semibold">
-                Popularity
-              </Text>
-              <Text className="text-slate-300 text-xs">13.23</Text>
-            </View>
-          </View>
-          <View className="my-6 mx-4  ">
-            <Text className="text-white text-lg">Biography</Text>
-            <Text className="text-slate-400  ">ehhehehe</Text>
-          </View>
-
-          {/* {<MovieList data={[1, 2, 3, 4, 5, 6]} title="Movies" />} */}
+            style={{ width, height: height * 0.6 }}
+          />
+          <LinearGradient
+            colors={[
+              "transparent",
+              "rgba(23, 23, 23, 0.4)",
+              "rgba(23, 23, 23, 6)",
+            ]}
+            style={{ width, height: height * 0.4, ...tw`absolute bottom-0` }}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
+          />
         </View>
-      </ScrollView>
-    </View>
+        <View style={tw`mt-6`}>
+          <Text style={tw`text-white text-3xl font-bold text-center`}>
+            {data.name}
+          </Text>
+          <Text style={tw`text-slate-500 mt-0.5 text-center`}>
+            {data.place_of_birth}
+          </Text>
+        </View>
+        <ExternalInformation data={externalInformation} />
+        <Divider style={tw`my-4`} />
+        <BasicInformation
+          alsoKnownAs={data.also_known_as}
+          personalInformation={personalInformation}
+          biography={data.biography}
+        />
+        <Divider style={tw`my-4`} />
+        <Text style={tw`text-[${theme.main}]  pb-4 pl-4 text-xl font-semibold`}>
+          Movie of this artist
+        </Text>
+        <CombinedCreditList data={combinedCreditCastList} />
+      </View>
+    </LayoutDefault>
   );
 };
 

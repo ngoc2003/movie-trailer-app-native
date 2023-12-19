@@ -28,10 +28,11 @@ const ReviewList = ({ data }: ReviewListProps) => {
       </View>
       {data.length ? (
         <FlatList
+          keyExtractor={(item) => item.id.toString()}
           horizontal
           showsHorizontalScrollIndicator={false}
           data={data}
-          renderItem={({ item }) => <ReviewItem key={item.id} data={item} />}
+          renderItem={({ item }) => <ReviewItem data={item} />}
         />
       ) : (
         <Text style={tw`text-slate-400 text-base px-4`}>

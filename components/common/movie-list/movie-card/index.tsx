@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Dimensions,
   Image,
@@ -19,6 +19,7 @@ interface MovieCardProps {
   movie: MovieType;
   onPress: () => void;
   size?: MovieCardSize;
+  children?: ReactNode;
 }
 
 let { width, height } = Dimensions.get("window");
@@ -61,14 +62,21 @@ const ATTR = {
   },
 };
 
-const MovieCard = ({ movie, onPress, size = "normal" }: MovieCardProps) => {
+const MovieCard = ({
+  movie,
+  onPress,
+  size = "normal",
+  children,
+}: MovieCardProps) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={tw`mx-2`}>
         <View>
           <Image
             source={{
-              uri: API.getImageUrl(movie.poster_path),
+              uri: movie.poster_path
+                ? API.getImageUrl(movie.poster_path)
+                : "https://us.123rf.com/450wm/infadel/infadel1712/infadel171200119/91684826-a-black-linear-photo-camera-logo-like-no-image-available.jpg?ver=6",
             }}
             style={{ ...ATTR[size].image, ...tw`rounded-3xl  ` }}
           />
@@ -92,17 +100,18 @@ const MovieCard = ({ movie, onPress, size = "normal" }: MovieCardProps) => {
           >
             {movie.title}
           </Text>
-          {movie?.release_date && (
-            <Text
-              style={{
-                ...ATTR[size].information.date.style,
-                ...tw`text-slate-500 mt-0.5`,
-              }}
-            >
-              {format(new Date(movie.release_date), "MMMM dd, yyyy")}
-            </Text>
-          )}
+          <Text
+            style={{
+              ...ATTR[size].information.date.style,
+              ...tw`text-slate-500 mt-0.5`,
+            }}
+          >
+            {movie?.release_date
+              ? format(new Date(movie.release_date), "MMMM dd, yyyy")
+              : "Not released yet"}
+          </Text>
         </View>
+        {children}
       </View>
     </TouchableWithoutFeedback>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Dimensions,
   Image,
@@ -19,9 +19,10 @@ const { width } = Dimensions.get("window");
 
 interface TvShowItemProp {
   data: TvShowType;
+  children?: ReactNode;
 }
 
-const TvShowItem = ({ data }: TvShowItemProp) => {
+const TvShowItem = ({ data, children }: TvShowItemProp) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
@@ -68,6 +69,7 @@ const TvShowItem = ({ data }: TvShowItemProp) => {
             {data.overview}
           </Text>
         </View>
+        {children}
       </View>
     </TouchableWithoutFeedback>
   );

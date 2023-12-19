@@ -19,6 +19,7 @@ import {
 } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import tw from "twrnc";
+import { theme } from "../theme";
 
 interface LayoutDefaultProp {
   children: ReactNode;
@@ -43,9 +44,6 @@ const LayoutDefault = ({ children }: LayoutDefaultProp) => {
               source={require("../assets/logo.png")}
               style={tw`h-8 w-40`}
             />
-            {/* <Text style={tw`text-white text-3xl font-bold`}>
-              <Text style={styles.text}>TL</Text> Movies
-            </Text> */}
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Search")}>
             <MagnifyingGlassIcon size={30} strokeWidth={2} color="white" />
@@ -55,7 +53,7 @@ const LayoutDefault = ({ children }: LayoutDefaultProp) => {
 
       <ScrollView
         showsHorizontalScrollIndicator
-        contentContainerStyle={{ paddingBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 40 }}
       >
         {children}
       </ScrollView>

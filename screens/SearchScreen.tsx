@@ -58,7 +58,7 @@ export default function SearchScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingHorizontal: 15 }}
-          style={tw`space-y-3 pt-2`}
+          style={tw`pt-2`}
         >
           <View style={tw`flex-row justify-between flex-wrap`}>
             {results.map((item, index) => {

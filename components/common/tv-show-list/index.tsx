@@ -31,13 +31,14 @@ const TvShowList = ({ title, data }: TvShowListProps) => {
       </View>
       <FlatList
         horizontal
+        keyExtractor={(item) => item.id.toString()}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: 10,
         }}
         nestedScrollEnabled={true}
         data={data}
-        renderItem={({ item }) => <TvShowItem key={item.id} data={item} />}
+        renderItem={({ item }) => <TvShowItem data={item} />}
       />
     </View>
   );

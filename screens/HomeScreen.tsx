@@ -64,7 +64,6 @@ const HomeScreen = () => {
   const {
     data: animeEpisodeList,
     // error,
-    isLoading: animeEpisodeLoading,
   } = useSWR<CommonResponse<TvShowType[]>>(
     () => API.getAnimeEpisodeList(),
     fetcher

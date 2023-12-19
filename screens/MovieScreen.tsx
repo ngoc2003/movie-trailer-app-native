@@ -35,7 +35,7 @@ const MovieScreen = () => {
     );
 
   const { data, isLoading } = useSWR<MovieDetailType>(
-    API.getMovieDetail(id, "movie"),
+    API.getDetail(id, "movie"),
     fetcher
   );
 

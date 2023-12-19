@@ -18,6 +18,7 @@ const EpisodeList = ({ data: episodes, voteAverage }: EpisodeListProp) => {
       </Text>
       <FlatList
         horizontal
+        keyExtractor={(item) => item.id.toString()}
         showsHorizontalScrollIndicator={false}
         data={episodes}
         renderItem={({ item: episode }) => (

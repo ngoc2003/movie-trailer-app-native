@@ -46,6 +46,7 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
       {!isLoading && data.length && (
         <FlatList
           horizontal
+          keyExtractor={(item) => item.id.toString()}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingHorizontal: 10,
@@ -53,7 +54,7 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
           nestedScrollEnabled={true}
           data={data}
           renderItem={({ item }) => (
-            <TouchableWithoutFeedback key={item.id}>
+            <TouchableWithoutFeedback>
               <MovieCard
                 size="small"
                 movie={item}

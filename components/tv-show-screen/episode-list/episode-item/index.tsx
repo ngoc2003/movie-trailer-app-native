@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Dimensions,
@@ -46,6 +46,8 @@ const handleRewiteJob = (data: CrewType[]) => {
 };
 
 const EpisodeItem = ({ data: episode, voteAverage }: EpisodeItemProps) => {
+  const [isSeeMore, setIsSeeMore] = useState<boolean>(false);
+
   return (
     <View
       style={{
@@ -59,7 +61,7 @@ const EpisodeItem = ({ data: episode, voteAverage }: EpisodeItemProps) => {
           source={{
             uri: episode.still_path
               ? API.getImageUrl(episode.still_path)
-              : "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/09/hinh-nen-dien-thoai-cute-2022-19-696x1237.jpg?fit=700%2C20000&quality=95&ssl=1",
+              : "https://us.123rf.com/450wm/infadel/infadel1712/infadel171200119/91684826-a-black-linear-photo-camera-logo-like-no-image-available.jpg?ver=6",
           }}
           height={200}
           style={{
@@ -88,67 +90,76 @@ const EpisodeItem = ({ data: episode, voteAverage }: EpisodeItemProps) => {
       <Text numberOfLines={3} style={tw`text-slate-400 mt-1 text-sm`}>
         {episode.overview}
       </Text>
-      <Divider style={tw`my-4`} />
-      <TouchableOpacity>
-        <Text style={{ ...styles.text, ...tw`font-bold text-right text-sm` }}>
-          See more
-        </Text>
-      </TouchableOpacity>
-      <View>
-        <Text style={tw`text-base text-white font-semibold`}>
-          Crew{" "}
-          <Text style={tw`text-slate-400 text-sm`}>
-            ({episode.crew.length})
-          </Text>
-        </Text>
-        {handleRewiteJob(episode.crew)?.map((crew) => (
-          <View key={crew.job}>
-            <Text style={tw`font-semibold text-sm text-slate-400 mt-1`}>
-              {crew.job} by:{" "}
-              <Text style={tw`font-light text-slate-500 `}>
-                {crew.names.join(", ")}
+      {isSeeMore && (
+        <View>
+          <Divider style={tw`my-4`} />
+          <View>
+            <Text style={tw`text-base text-white font-semibold`}>
+              Crew{" "}
+              <Text style={tw`text-slate-400 text-sm`}>
+                ({episode.crew.length})
               </Text>
             </Text>
-          </View>
-        ))}
-      </View>
-      <Divider style={tw`my-4`} />
-      <View>
-        <Text style={tw`text-base text-white font-semibold mb-4`}>
-          Guest starss{" "}
-          <Text style={tw`text-slate-400 text-sm`}>
-            ({episode.guest_stars.length})
-          </Text>
-        </Text>
-        <ScrollView
-          style={{ maxHeight: 250 }}
-          showsVerticalScrollIndicator={false}
-        >
-          {episode.guest_stars?.map((star) => (
-            <View
-              key={star.id}
-              style={{ flexDirection: "row", marginBottom: 10 }}
-            >
-              <Image
-                source={{
-                  uri: API.getImageUrl(star.profile_path),
-                }}
-                width={40}
-                height={40}
-                style={{ borderRadius: 10, marginRight: 10 }}
-              />
-              <View>
+            {handleRewiteJob(episode.crew)?.map((crew) => (
+              <View key={crew.job}>
                 <Text style={tw`font-semibold text-sm text-slate-400 mt-1`}>
-                  {star.name}
-                </Text>
-                <Text style={tw`font-light text-slate-500`}>
-                  {star.character}
+                  {crew.job} by:{" "}
+                  <Text style={tw`font-light text-slate-500 `}>
+                    {crew.names.join(", ")}
+                  </Text>
                 </Text>
               </View>
-            </View>
-          ))}
-        </ScrollView>
-      </View>
+            ))}
+          </View>
+          <Divider style={tw`my-4`} />
+          <View>
+            <Text style={tw`text-base text-white font-semibold mb-4`}>
+              Guest starss{" "}
+              <Text style={tw`text-slate-400 text-sm`}>
+                ({episode.guest_stars.length})
+              </Text>
+            </Text>
+            <ScrollView
+              style={{ maxHeight: 250 }}
+              showsVerticalScrollIndicator={false}
+            >
+              {episode.guest_stars?.map((star) => (
+                <View
+                  key={star.id}
+                  style={{ flexDirection: "row", marginBottom: 10 }}
+                >
+                  <Image
+                    source={{
+                      uri: API.getImageUrl(star.profile_path),
+                    }}
+                    width={40}
+                    height={40}
+                    style={{ borderRadius: 10, marginRight: 10 }}
+                  />
+                  <View>
+                    <Text style={tw`font-semibold text-sm text-slate-400 mt-1`}>
+                      {star.name}
+                    </Text>
+                    <Text style={tw`font-light text-slate-500`}>
+                      {star.character}
+                    </Text>
+                  </View>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+      )}
+      {!isSeeMore && (
+        <TouchableOpacity
+          style={{ marginTop: 8 }}
+          onPress={() => setIsSeeMore(!isSeeMore)}
+        >
+          <Text style={{ ...styles.text, ...tw`font-bold text-right text-sm` }}>
+            See more
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
