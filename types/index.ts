@@ -169,13 +169,10 @@ export interface PeopleType {
   name: string;
   popularity: number;
   profile_path: string | null;
-}
-export interface TrendingPeopleType extends PeopleType {
   original_name: string;
   media_type: string;
   known_for: KnownForType[];
 }
-
 interface KnownForType extends MovieType {
   poster_path: string;
   media_type: string;

@@ -70,7 +70,7 @@ const MovieCard = ({
 }: MovieCardProps) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <View style={tw`mx-2`}>
+      <View style={tw`mx-2 mb-4`}>
         <View>
           <Image
             source={{
@@ -88,7 +88,7 @@ const MovieCard = ({
             />
           </View>
         </View>
-        <View style={tw`pt-5 px-2`}>
+        <View style={tw`pt-4`}>
           <Text
             numberOfLines={1}
             ellipsizeMode="tail"
@@ -127,7 +127,7 @@ MovieCard.Skeleton = function ({ size = "normal" }: MovieCardSkeleton) {
   return (
     <View
       style={{
-        ...tw`bg-[${theme.skeleton}] rounded-3xl   py-4 mx-2`,
+        ...tw`bg-[${theme.skeleton}] rounded-3xl py-4 mx-2`,
         ...ATTR[size].image,
       }}
     ></View>

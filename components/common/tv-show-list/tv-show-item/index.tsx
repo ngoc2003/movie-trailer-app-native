@@ -30,7 +30,7 @@ const TvShowItem = ({ data, children }: TvShowItemProp) => {
       key={data.id}
       onPress={() => navigation.navigate("TvShow", { id: data.id })}
     >
-      <View style={tw`mx-2`}>
+      <View style={tw`m-2`}>
         <View>
           <Image
             source={{

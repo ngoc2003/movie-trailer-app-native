@@ -63,4 +63,7 @@ export const API = {
     type = "movie" //type = movie | tv
   ) =>
     `${API_domain}/person/${id}/${type}_credits?language=en-US&api_key=${apiKey}`,
+
+  getSearchResult: (query: string, type = "movie", page = 1) =>
+    `${API_domain}/search/${type}?query=${query}&include_adult=true&language=en-US&page=${page}&api_key=${apiKey}`,
 };

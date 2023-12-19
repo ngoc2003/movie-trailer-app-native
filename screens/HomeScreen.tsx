@@ -2,12 +2,7 @@ import React from "react";
 import TrendingMovies from "../components/common/trending-movies";
 import MovieList from "../components/common/movie-list";
 import useSWR from "swr";
-import {
-  CommonResponse,
-  MovieType,
-  TrendingPeopleType,
-  TvShowType,
-} from "../types";
+import { CommonResponse, MovieType, PeopleType, TvShowType } from "../types";
 import { API, fetcher } from "../api";
 import TvShowList from "../components/common/tv-show-list";
 import TrendingPeople from "../components/common/trending-people";
@@ -44,7 +39,7 @@ const HomeScreen = () => {
     data: trendingPersonList,
     // error,
     isLoading: trendingPersonLoading,
-  } = useSWR<CommonResponse<TrendingPeopleType[]>>(
+  } = useSWR<CommonResponse<PeopleType[]>>(
     () => API.getTrendingList(),
     fetcher
   );
