@@ -1,12 +1,6 @@
 import React, { memo } from "react";
-import {
-  FlatList,
-  Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
-import { styles, theme } from "../../../theme";
+import { FlatList, Text, TouchableWithoutFeedback, View } from "react-native";
+import { theme } from "../../../theme";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MovieType } from "../../../types";
@@ -35,13 +29,12 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
         }}
       >
         <Text style={{ color: "white", fontSize: 20 }}>{title}</Text>
-        <TouchableOpacity>
-          {/* <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text> */}
-        </TouchableOpacity>
+        {/* <TouchableOpacity>
+          <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text>
+        </TouchableOpacity> */}
       </View>
-      {isLoading && <MovieList.Skeleton />}
-
-      {!isLoading && data.length && (
+      {!!isLoading && <MovieList.Skeleton />}
+      {!isLoading && !!data.length && (
         <FlatList
           horizontal
           keyExtractor={(item) => item.id.toString()}

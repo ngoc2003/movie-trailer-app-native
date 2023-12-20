@@ -19,6 +19,10 @@ const TrailerList = ({
   data,
   isLoading,
 }: TrailerListProps) => {
+  if (!data.length) {
+    return;
+  }
+
   return (
     <View>
       <Text

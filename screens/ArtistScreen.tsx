@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import LayoutDefault from "../layouts";
@@ -38,8 +38,6 @@ const ArtistScreen = () => {
     () => API.getCombinedCreditOfArtist(id),
     fetcher
   );
-
-  const combinedCreditCastList = useMemo(() => combinedCredit?.cast ?? [], []);
 
   if (!data || !externalInformation || !combinedCredit) {
     return <Loading />;
@@ -104,7 +102,7 @@ const ArtistScreen = () => {
         <Text style={tw`text-[${theme.main}]  pb-4 pl-4 text-xl font-semibold`}>
           Movie of this artist
         </Text>
-        <CombinedCreditList data={combinedCreditCastList} />
+        <CombinedCreditList data={combinedCredit?.cast ?? []} />
       </View>
     </LayoutDefault>
   );

@@ -16,7 +16,7 @@ const ReviewItem = ({ data }: ReviewItemProps) => {
     <View
       style={{
         width: width * 0.8,
-        ...tw`bg-[#211f30] p-4 mx-2 rounded-md`,
+        ...tw`bg-[#211f30] p-4 ml-4 rounded-md`,
       }}
     >
       <View
