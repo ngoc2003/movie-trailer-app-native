@@ -26,7 +26,7 @@ const TvShowList = ({ title, data }: TvShowListProps) => {
       >
         <Text style={{ color: "white", fontSize: 20 }}>{title}</Text>
         <TouchableOpacity>
-          <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text>
+          {/* <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text> */}
         </TouchableOpacity>
       </View>
       <FlatList

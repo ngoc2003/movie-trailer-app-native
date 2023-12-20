@@ -36,9 +36,7 @@ const MovieList = ({ title, data, isLoading }: MovieListProps) => {
       >
         <Text style={{ color: "white", fontSize: 20 }}>{title}</Text>
         <TouchableOpacity>
-          <Text style={[styles.text, { fontWeight: "bold" }]}>
-            See All <Text></Text>
-          </Text>
+          {/* <Text style={[styles.text, { fontWeight: "bold" }]}>See All</Text> */}
         </TouchableOpacity>
       </View>
       {isLoading && <MovieList.Skeleton />}

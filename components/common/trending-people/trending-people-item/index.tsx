@@ -54,7 +54,7 @@ const PeopleItemCard = ({ data: person, isReverse }: PeopleItemCardProp) => {
             }}
             numberOfLines={3}
           >
-            {person.known_for.map((product) => (
+            {person?.known_for?.map((product) => (
               <Text key={product.id}>{product.title}, </Text>
             ))}
           </Text>

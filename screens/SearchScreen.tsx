@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
@@ -29,13 +29,31 @@ export default function SearchScreen() {
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>("");
 
+  const [results, setResults] = useState([]);
+  const [page, setPage] = useState(1);
+
   const { data, isLoading } = useSWR(
-    () => API.getSearchResult(searchValue, TAB_NAMES[tabIndex]),
+    () => API.getSearchResult(searchValue, TAB_NAMES[tabIndex], page),
     fetcher
   );
 
+  useEffect(() => {
+    if (data?.results) {
+      setResults((prev) => [...prev, ...data.results]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setPage(1);
+    setResults([]);
+  }, [tabIndex]);
+
+  const onNextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
   return (
-    <SafeAreaView style={tw`bg-slate-900 flex-1 flex-col`}>
+    <SafeAreaView style={tw`bg-[#15141f] flex-1 flex-col`}>
       <View style={tw`p-4 pb-0`}>
         <View
           style={tw`mb-3 p-1 flex-row justify-between items-center border border-slate-700 rounded-full`}
@@ -47,7 +65,7 @@ export default function SearchScreen() {
             onSubmitEditing={(event) => setSearchValue(event.nativeEvent.text)}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.goBack()}
             style={tw`rounded-full p-3 bg-[${theme.main}]`}
           >
             <XMarkIcon size="20" color="white" />
@@ -65,7 +83,9 @@ export default function SearchScreen() {
                 : "border-b-slate-700"
             }`}
             key={tab}
-            onPress={() => setTabIndex(index)}
+            onPress={() => {
+              setTabIndex(index);
+            }}
           >
             <Text
               style={tw`text-sm ${
@@ -85,30 +105,52 @@ export default function SearchScreen() {
         contentContainerStyle={{ padding: 10 }}
         style={tw`pt-2`}
       >
-        {isLoading ? (
-          <Loading style={{ height: 100, ...tw`bg-transparent` }} />
-        ) : data?.results.length > 0 ? (
-          <View style={tw`flex-row justify-center gap-2 flex-wrap`}>
-            {TAB_NAMES[tabIndex] === "movie" &&
-              data.results.map((item: MovieType) => (
-                <MovieCard
-                  size="small"
-                  movie={item}
-                  onPress={() => navigation.navigate("Movie", { id: item.id })}
-                />
-              ))}
-            {TAB_NAMES[tabIndex] === "tv" &&
-              data.results.map((item: TvShowType) => (
-                <TvShowItem data={item} />
-              ))}
-            {TAB_NAMES[tabIndex] === "person" &&
-              data.results.map((item: PeopleType, index: number) => (
-                <PeopleItemCard isReverse={index % 2 == 1} data={item} />
-              ))}
+        {results.length > 0 && (
+          <View>
+            <View style={tw`flex-row justify-center gap-2 flex-wrap`}>
+              {TAB_NAMES[tabIndex] === "movie" &&
+                results.map((item: MovieType) => (
+                  <MovieCard
+                    size="small"
+                    key={item.id}
+                    movie={item}
+                    onPress={() =>
+                      navigation.navigate("Movie", { id: item.id })
+                    }
+                  />
+                ))}
+              {TAB_NAMES[tabIndex] === "tv" &&
+                results.map((item: TvShowType) => (
+                  <TvShowItem key={item.id} data={item} />
+                ))}
+              {TAB_NAMES[tabIndex] === "person" &&
+                results.map((item: PeopleType, index: number) => (
+                  <PeopleItemCard
+                    key={item.id}
+                    isReverse={index % 2 == 1}
+                    data={item}
+                  />
+                ))}
+            </View>
+            {page < data?.total_pages && (
+              <TouchableOpacity
+                onPress={onNextPage}
+                disabled={isLoading}
+                style={tw`bg-[${theme.main}] flex-1 p-3.5 my-2 rounded-sm`}
+              >
+                <Text style={tw`text-white text-center text-base`}>
+                  See more results
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
-        ) : (
+        )}
+        {isLoading && (
+          <Loading style={{ height: 100, ...tw`bg-transparent` }} />
+        )}
+        {!isLoading && !results.length && (
           <View style={tw`flex-row justify-center h-[100] items-center`}>
-            <Text style={tw`text-slate-400 foint-semibold`}>
+            <Text style={tw`text-slate-400 font-semibold`}>
               No data founded
             </Text>
           </View>

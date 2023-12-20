@@ -40,7 +40,7 @@ export const API = {
   `,
 
   getHorrorList: () =>
-    `${API_domain}/discover/movie?api_key=${apiKey}&include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27`,
+    `${API_domain}/discover/movie?api_key=${apiKey}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=27`,
 
   getTrendingList: (
     query = "person" //movie | person | tv
@@ -65,5 +65,5 @@ export const API = {
     `${API_domain}/person/${id}/${type}_credits?language=en-US&api_key=${apiKey}`,
 
   getSearchResult: (query: string, type = "movie", page = 1) =>
-    `${API_domain}/search/${type}?query=${query}&include_adult=true&language=en-US&page=${page}&api_key=${apiKey}`,
+    `${API_domain}/search/${type}?query=${query}&include_adult=false&language=en-US&page=${page}&api_key=${apiKey}`,
 };
