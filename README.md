@@ -5,7 +5,7 @@
 
 ## About The Project
 
-[![Movie trailer app][product-screenshot]](https://expo.dev/artifacts/eas/dGAUAn1zcv7PYmCbdGy5Ae.aab)
+[![Movie trailer app][product-screenshot]](https://wru-my.sharepoint.com/:u:/g/personal/2151062838_e_tlu_edu_vn/Ea9ZoWZSjUFFsKsO0hSSICUBfaDZNle2Oq-o7Y1245uEIA?e=nQCxKM)
 
 This app is inspired by [ThemovieDB](https://www.themoviedb.org/) and has been created solely for educational purposes. I hope you find something valuable to study in my project ❤️. If you have any questions or need assistance, please feel free to ask. Good luck with your learning journey!
 
